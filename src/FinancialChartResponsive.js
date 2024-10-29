@@ -25,7 +25,7 @@ const FinancialChartResponsive = () => {
     }
     const chart = createChart(chartContainerRef.current, {
       width: 1850,
-      height: 880,
+      height: 860,
       layout: {
         background: { color: 'white' },
         textColor: 'black',
@@ -45,10 +45,6 @@ const FinancialChartResponsive = () => {
           labelBackgroundColor: '#9B7DFF',
         },
       },
-      timeScale: {
-        timeVisible: true,
-        secondsVisible: true, // Include seconds if needed
-      },
     });
 
     chartRef.current = chart;
@@ -60,7 +56,6 @@ const FinancialChartResponsive = () => {
       downColor: 'red',
       borderVisible: false,
     });
-    console.log(filteredData)
     let chartData = filteredData.map(row => ({
       time: row.time,
       open: row.open,
