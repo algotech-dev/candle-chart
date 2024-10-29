@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate, HashRouter } from 'react-router-dom';
 import Papa from 'papaparse';
 import './App.css';
 import FinancialChartResponsive from './FinancialChartResponsive';
@@ -128,12 +128,12 @@ const CsvUploader = () => {
 
 function App() {
   return (
-    <Router>
+    <HashRouter>
       <Routes>
         <Route path="/" element={<CsvUploader />} />
         <Route path="/symbol-chart/" element={<FinancialChartResponsive />} />
       </Routes>
-    </Router>
+    </HashRouter>
   );
 }
 
