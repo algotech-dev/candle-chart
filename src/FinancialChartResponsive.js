@@ -73,8 +73,9 @@ const FinancialChartResponsive = () => {
     });
   
     const lineSeries = chart.addAreaSeries({
-      color: '#FFAF00',
-      lineWidth: 3,
+      lineColor: '#793FDF',
+      topColor: '#793FDF', 
+      lineWidth: 2,
     });
   
     const updateChartData = () => {
@@ -118,16 +119,6 @@ const FinancialChartResponsive = () => {
         const volume = filteredData.find(row => row.time === candleData.time)?.volume || 0;
         setFocusedCandle({ ...candleData, volume });
       }
-    });
-  
-    // Example of adding a horizontal line
-    candlestickSeries.createPriceLine({
-      price: 1.22,
-      color: 'red',
-      lineWidth: 1,
-      lineStyle: LineStyle.Solid,
-      axisLabelVisible: true,
-      title: 'Support'
     });
   
     const handleResize = () => {
