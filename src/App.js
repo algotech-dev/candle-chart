@@ -20,7 +20,6 @@ const App = () => {
             <Route path="/chart" element={<FinancialChartResponsive />} />
           </Routes>
         </main>
-        <Footer />
       </div>
     </HashRouter>
   );

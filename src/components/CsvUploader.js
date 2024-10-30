@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Papa from 'papaparse';
+import Footer from './Footer';
 
 const CsvUploader = () => {
   const [loading, setLoading] = useState(false);

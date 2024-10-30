@@ -1,0 +1,45 @@
+/* src/components/Navbar.css */
+.custom-navbar {
+  background-color: #2c3e50; /* Dark blue-gray color */
+  transition: background-color 0.3s ease;
+}
+
+.custom-navbar:hover {
+  background-color: #34495e; /* Slightly lighter on hover */
+}
+
+.logo-text {
+  background: linear-gradient(90deg, #f39c12, #e67e22); /* Gradient colors */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-size: 1.5rem; /* Adjust font size as needed */
+}
+
+.nav-link {
+  color: #ecf0f1; /* Light gray for text */
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #f39c12; /* Orange on hover */
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: #f39c12; /* Highlight active link */
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"%3E%3Cpath stroke="white" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+}
+
+/* Add shadows and spacing for a modern feel */
+.shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}

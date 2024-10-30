@@ -1,16 +1,19 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { createChart } from 'lightweight-charts';
+import { createChart, LineStyle  } from 'lightweight-charts';
 import './FinancialChartResponsive.css';
-
 
 const FinancialChartResponsive = () => {
   const chartContainerRef = useRef();
   const location = useLocation();
-  const { data = [], symbols = [], symbolFilteredData = [] } = location.state || {};
+  const { data = [], symbols = [] } = location.state || {};
   const chartRef = useRef();
   const [focusedCandle, setFocusedCandle] = useState(null);
   const [selectedSymbol, setSelectedSymbol] = useState(symbols[0] || '');
+
+  // State for toggling series visibility
+  const [showCandlestick, setShowCandlestick] = useState(true);
+  const [showLineSeries, setShowLineSeries] = useState(false);
 
   const filteredData = useMemo(() => {
     return data.filter(row => row.symbol === selectedSymbol);
@@ -25,10 +28,10 @@ const FinancialChartResponsive = () => {
       console.error("No data available for the chart.");
       return;
     }
-
+  
     const chart = createChart(chartContainerRef.current, {
       width: chartContainerRef.current.clientWidth - 30,
-      height: 760,
+      height: 715,
       layout: {
         background: { color: 'white' },
         textColor: 'black',
@@ -38,6 +41,7 @@ const FinancialChartResponsive = () => {
         horzLines: { color: '#f0eded' },
       },
       crosshair: {
+        mode: 0,
         vertLine: {
           color: 'black',
           labelBackgroundColor: 'black',
@@ -54,12 +58,12 @@ const FinancialChartResponsive = () => {
       timeScale: {
         borderColor: '#f0eded',
         timeVisible: true,
-        secondsVisible: true
-      }  
+        secondsVisible: true,
+      },
     });
-
+  
     chartRef.current = chart;
-
+  
     const candlestickSeries = chart.addCandlestickSeries({
       wickUpColor: 'green',
       upColor: 'green',
@@ -67,66 +71,124 @@ const FinancialChartResponsive = () => {
       downColor: 'red',
       borderVisible: false,
     });
-
-    candlestickSeries.setData(filteredData.map(row => ({
-      time: row.time,
-      open: row.open,
-      high: row.high,
-      low: row.low,
-      close: row.close,
-      volume: row.volume,
-    })));
-
+  
+    const lineSeries = chart.addAreaSeries({
+      color: '#FFAF00',
+      lineWidth: 3,
+    });
+  
+    const updateChartData = () => {
+      const candleData = filteredData.map(row => ({
+        time: row.time,
+        open: row.open,
+        high: row.high,
+        low: row.low,
+        close: row.close,
+        volume: row.volume,
+      }));
+  
+      if (showCandlestick) {
+        candlestickSeries.setData(candleData);
+      } else {
+        candlestickSeries.setData([]); // Clear data if not showing
+      }
+  
+      const lineData = filteredData.map(row => ({
+        time: row.time,
+        value: row.close,
+      }));
+  
+      if (showLineSeries) {
+        lineSeries.setData(lineData);
+      } else {
+        lineSeries.setData([]); // Clear data if not showing
+      }
+    };
+  
+    updateChartData();
+  
     chart.subscribeCrosshairMove((param) => {
       if (!param || !param.seriesData) {
         setFocusedCandle(null);
         return;
       }
-
+  
       const candleData = param.seriesData.get(candlestickSeries);
       if (candleData) {
         const volume = filteredData.find(row => row.time === candleData.time)?.volume || 0;
         setFocusedCandle({ ...candleData, volume });
       }
     });
-
+  
+    // Example of adding a horizontal line
+    candlestickSeries.createPriceLine({
+      price: 1.22,
+      color: 'red',
+      lineWidth: 1,
+      lineStyle: LineStyle.Solid,
+      axisLabelVisible: true,
+      title: 'Support'
+    });
+  
     const handleResize = () => {
       chart.resize(chartContainerRef.current.clientWidth, 640);
     };
-
+  
     window.addEventListener('resize', handleResize);
-
+  
     return () => {
       chart.remove();
       window.removeEventListener('resize', handleResize);
     };
-  }, [filteredData]);
+  }, [filteredData, showCandlestick, showLineSeries]);
+  
 
   return (
     <>
-      <label htmlFor="symbol-select">Select Symbol:</label>
-      <select 
-        id="symbol-select" 
-        onChange={handleSymbolChange} 
-        value={selectedSymbol}
-      >
-        {symbols.map((symbol) => (
-          <option key={symbol} value={symbol}>{symbol}</option>
-        ))}
-      </select>
+      <div className='support'>
+        <label htmlFor="symbol-select">Select Symbol:</label>
+        <select
+          id="symbol-select"
+          onChange={handleSymbolChange}
+          value={selectedSymbol}
+        >
+          {symbols.map((symbol) => (
+            <option key={symbol} value={symbol}>{symbol}</option>
+          ))}
+        </select>
+        <div className="toggle-container">
+          <label>
+            <input
+              type="checkbox"
+              checked={showCandlestick}
+              onChange={() => setShowCandlestick(prev => !prev)}
+            />
+            Show Candlestick
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={showLineSeries}
+              onChange={() => setShowLineSeries(prev => !prev)}
+            />
+            Show Line Series
+          </label>
+        </div>
+      </div>
 
       {focusedCandle && (
-        <div 
+        <div
           className={`focused-candle-data ${focusedCandle.close >= focusedCandle.open ? 'positive' : 'negative'}`}
         >
           <strong>OHLC Data:</strong>
-          Open: {focusedCandle.open},  
-          High: {focusedCandle.high},  
-          Low: {focusedCandle.low},  
-          Close: {focusedCandle.close},  
-          Volume: {focusedCandle.volume} 
+          Open: {focusedCandle.open},
+          High: {focusedCandle.high},
+          Low: {focusedCandle.low},
+          Close: {focusedCandle.close},
+          Volume: {focusedCandle.volume}
         </div>
       )}
+
       <div className="chart-container" ref={chartContainerRef}></div>
     </>
   );

@@ -1,9 +1,10 @@
 // src/components/Home.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import Footer from './Footer';
 const Home = () => {
   return (
+    <>
     <div className="container py-5">
       <div className="row align-items-center">
         <div className="col-lg-6">
@@ -71,6 +72,8 @@ const Home = () => {
         </Link>
       </div>
     </div>
+    <Footer />
+    </>
   );
 };
 
