@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/candle-chart/static/css/main.582d387d.css",
-    "main.js": "/candle-chart/static/js/main.d89557c0.js",
+    "main.css": "/candle-chart/static/css/main.5df50b2d.css",
+    "main.js": "/candle-chart/static/js/main.422c6cb4.js",
     "index.html": "/candle-chart/index.html",
-    "main.582d387d.css.map": "/candle-chart/static/css/main.582d387d.css.map",
-    "main.d89557c0.js.map": "/candle-chart/static/js/main.d89557c0.js.map"
+    "main.5df50b2d.css.map": "/candle-chart/static/css/main.5df50b2d.css.map",
+    "main.422c6cb4.js.map": "/candle-chart/static/js/main.422c6cb4.js.map"
   },
   "entrypoints": [
-    "static/css/main.582d387d.css",
-    "static/js/main.d89557c0.js"
+    "static/css/main.5df50b2d.css",
+    "static/js/main.422c6cb4.js"
   ]
 }
