@@ -154,3 +154,12 @@ ul.list-unstyled li:last-child {
     padding: 20px;
   }
 }
+
+.btn-primary:hover {
+  background-color: #2980b9 !important;
+  transform: translateY(-1px);
+}
+
+.upload-area:hover {
+  border-color: #3498db !important;
+}

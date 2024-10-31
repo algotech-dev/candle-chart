@@ -2,6 +2,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Footer from './Footer';
+import { RiUploadCloudFill } from "react-icons/ri";
+
 const Home = () => {
   return (
     <>
@@ -13,7 +15,7 @@ const Home = () => {
             Unlock the power of algorithmic trading with our advanced financial technology solutions.
           </p>
           <Link to="/dashboard" className="btn btn-primary btn-lg">
-            Get Started
+          <RiUploadCloudFill /> Upload CSV
           </Link>
         </div>
         <div className="col-lg-6">
@@ -68,7 +70,7 @@ const Home = () => {
           Join us today and take your trading to the next level with Time Line Investments.
         </p>
         <Link to="/dashboard" className="btn btn-primary btn-lg">
-          Sign Up Now
+        <RiUploadCloudFill /> Upload CSV
         </Link>
       </div>
     </div>
