@@ -183,6 +183,7 @@ const CsvUploader = () => {
 
                   {/* Right Column - Upload Area */}
                   <div className="col-md-8">
+                  <h4 className="m-5" style={{textAlign: 'center'}}>Only CM 1-MIN files are supported</h4>
                     <div className="p-4 p-lg-5">
                       <div
                         className={`upload-area ${isDragging ? 'dragging' : ''}`}
@@ -200,6 +201,8 @@ const CsvUploader = () => {
                       >
                         <i className="bi bi-cloud-upload display-3 mb-3 d-block" style={{ color: '#3498db' }}></i>
                         <h4 className="mb-3">Upload Your Trading Data</h4>
+                        
+
                         <p className="text-muted mb-3">
                           Drag and drop your CSV file here, or
                           <label className="ms-1 text-primary" style={{ cursor: 'pointer' }}>

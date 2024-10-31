@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
-import { createChart, LineStyle  } from 'lightweight-charts';
+import { createChart  } from 'lightweight-charts';
 import './FinancialChartResponsive.css';
 
 const FinancialChartResponsive = () => {
@@ -77,6 +77,7 @@ const FinancialChartResponsive = () => {
       topColor: '#793FDF', 
       lineWidth: 2,
     });
+
   
     const updateChartData = () => {
       const candleData = filteredData.map(row => ({
